@@ -1,7 +1,7 @@
 name: sat_scraping
 description: Paquete para obtener Información Fiscal (Mx).
 version: 0.0.1
-homepage:
+homepage: https://github.com/OscarTinajero117/sat_scraping
 
 environment:
   sdk: '>=2.18.6 <3.0.0'
