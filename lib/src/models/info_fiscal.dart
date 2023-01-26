@@ -1,46 +1,54 @@
 import 'caracteristicas_fiscales.dart';
 
+/// [InfoFiscal] tiene un constructor que inicializa todas las propiedades de
+/// la clase como obligatorias. También se define un método [copyWith] que
+/// permite crear una nueva instancia de la clase con algunas propiedades
+/// modificadas. Además, se define un método toJson que devuelve un mapa de las
+/// propiedades de la clase y un método [getDefault] que devuelve una instancia
+/// de la clase con todas las propiedades vacías. También se importa una clase
+/// [caracteristicas_fiscales.dart] y se utiliza en una propiedad
+/// [caracteristicasFiscales].
 class InfoFiscal {
   InfoFiscal({
     required this.rfc,
     required this.idCif,
-    this.curpRegimen,
+    required this.curpRegimen,
     required this.razonSocial,
-    this.fechaNacimientoConstitucion,
-    this.fechaInicioOperacions,
-    this.situacionContribuyente,
-    this.fechaUltimoCambio,
-    this.entidadFederativa,
-    this.municipioDelegacion,
-    this.colonia,
-    this.tipoVialidad,
-    this.nombreVialidad,
-    this.numeroExterior,
-    this.numeroInterior,
+    required this.fechaNacimientoConstitucion,
+    required this.fechaInicioOperacions,
+    required this.situacionContribuyente,
+    required this.fechaUltimoCambio,
+    required this.entidadFederativa,
+    required this.municipioDelegacion,
+    required this.colonia,
+    required this.tipoVialidad,
+    required this.nombreVialidad,
+    required this.numeroExterior,
+    required this.numeroInterior,
     required this.cp,
-    this.correoElectronico,
-    this.al,
+    required this.correoElectronico,
+    required this.al,
     this.caracteristicasFiscales = const [],
   });
 
   final String rfc;
   final String idCif;
-  final String? curpRegimen;
+  final String curpRegimen;
   final String razonSocial;
-  final String? fechaNacimientoConstitucion;
-  final String? fechaInicioOperacions;
-  final String? situacionContribuyente;
-  final String? fechaUltimoCambio;
-  final String? entidadFederativa;
-  final String? municipioDelegacion;
-  final String? colonia;
-  final String? tipoVialidad;
-  final String? nombreVialidad;
-  final String? numeroExterior;
-  final String? numeroInterior;
+  final String fechaNacimientoConstitucion;
+  final String fechaInicioOperacions;
+  final String situacionContribuyente;
+  final String fechaUltimoCambio;
+  final String entidadFederativa;
+  final String municipioDelegacion;
+  final String colonia;
+  final String tipoVialidad;
+  final String nombreVialidad;
+  final String numeroExterior;
+  final String numeroInterior;
   final String cp;
-  final String? correoElectronico;
-  final String? al;
+  final String correoElectronico;
+  final String al;
   final List<CaracteristicasFiscales> caracteristicasFiscales;
 
   InfoFiscal copyWith({
