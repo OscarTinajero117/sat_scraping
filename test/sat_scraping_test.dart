@@ -25,7 +25,7 @@ void main() {
     // TODO: COMPLETE THE URL WITH THE DATA OF YOUR QR
     /// (Completa la url con los datos de tu QR)
     const url =
-        "https://siat.sat.gob.mx/app/qr/faces/pages/mobile/validadorqr.jsf";
+        "https://siat.sat.gob.mx/app/qr/faces/pages/mobile/validadorqr.jsf?";
     expect(
       await SatScraping.getInfoFiscal(url),
       isInstanceOf<InfoFiscal>(),
