@@ -1,6 +1,6 @@
 name: sat_scraping
-description: Paquete para obtener Información Fiscal (Mx).
-version: 0.0.3
+description: Herramienta que permite obtener información fiscal de un contribuyente. Ayuda a automatizar dicho proceso y puede ser utilizado en aplicaciones de negocios o financieras.
+version: 0.0.4
 homepage: https://github.com/OscarTinajero117/sat_scraping
 
 environment:

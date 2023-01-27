@@ -9,3 +9,7 @@ Se Agrega Ejemplo
 ## 0.0.3
 
 Se Agrega Documentación y mejoras en código
+
+## 0.0.4
+
+Se Mejora la Documentación y el código
