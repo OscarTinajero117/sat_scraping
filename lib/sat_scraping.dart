@@ -69,4 +69,50 @@ class SatScraping {
       rethrow;
     }
   }
+
+  /// Este método es similar al anterior, pero recibe como parámetros
+  /// [rfc] y [idCif] en lugar de [satUrl].
+  ///
+  /// El método se asegura de que [rfc] y [idCif] no estén vacíos y que [rfc]
+  /// tenga una longitud de 12 o 13 caracteres.
+  ///
+  /// Luego, se construye la url a partir de [rfc] e [idCif] y se utiliza el
+  /// método [getInfoFiscal] para obtener la información fiscal.
+  ///
+  /// El resultado se retorna.
+  ///
+  /// Este método es útil cuando no se tiene el QR de la constancia de
+  /// situación fiscal
+  static Future<InfoFiscal> getInfoFiscalManual({
+    required String rfc,
+    required String idCif,
+  }) async {
+    try {
+      /// Se asegura de que [rfc] y [idCif] no estén vacíos
+      if (rfc == '' || idCif == '') {
+        throw Exception('Error: No se puede dejar vacio el rfc o el idCif');
+      }
+
+      /// y que [rfc] tenga una longitud de 12 o 13 caracteres.
+      if (rfc.length > 13 || rfc.length < 12) {
+        throw Exception('Error: RFC invalido');
+      }
+
+      /// Se construye la url a partir de [rfc] e [idCif]
+      /// y se utiliza el método [getInfoFiscal] para obtener la información
+      /// fiscal.
+      return await SatHttpScraping.getInfoFiscal(
+        satUrl:
+            'https://siat.sat.gob.mx/app/qr/faces/pages/mobile/validadorqr.jsf?D1=10&D2=1&D3='
+            '${idCif}_$rfc',
+        rfc: rfc,
+        idCif: idCif,
+      );
+    } catch (e) {
+      /// En caso de que ocurra algún error, se registra en el registro de
+      /// desarrollador utilizando la función log y se reenvía la excepción.
+      log('--> $e');
+      rethrow;
+    }
+  }
 }

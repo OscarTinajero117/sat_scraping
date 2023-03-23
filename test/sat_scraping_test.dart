@@ -31,4 +31,12 @@ void main() {
       isInstanceOf<InfoFiscal>(),
     );
   });
+  test('Check manual data', () async {
+    const rfc = 'PUT_RFC'; // (RFC)
+    const idCif = 'PUT_IDCIF'; // (ID CIF)
+    expect(
+      await SatScraping.getInfoFiscalManual(rfc: rfc, idCif: idCif),
+      isInstanceOf<InfoFiscal>(),
+    );
+  });
 }
