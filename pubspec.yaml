@@ -1,6 +1,6 @@
 name: sat_scraping
 description: Herramienta que permite obtener información fiscal de un contribuyente. Ayuda a automatizar dicho proceso y puede ser utilizado en aplicaciones de negocios o financieras.
-version: 0.0.5
+version: 0.0.6
 homepage: https://github.com/OscarTinajero117/sat_scraping
 issues: https://github.com/OscarTinajero117/sat_scraping/issues
 

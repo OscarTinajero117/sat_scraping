@@ -19,3 +19,7 @@ Se Mejora la Documentación y el código
 ## 0.0.5
 
 Se agrega la opción de agregar RFC manualmente
+
+## 0.0.6
+
+Actualización de README
