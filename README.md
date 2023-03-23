@@ -13,15 +13,25 @@ and the Flutter guide for
 
 # Sat Scraping
 
-Este paquete sirve para extraer la información fiscal que viene en la página: 
+Este paquete sirve para extraer la información fiscal que viene en la página:
 
-https://siat.sat.gob.mx
+<https://siat.sat.gob.mx>
 
 Este paquete es útil para obtener dicha información de manera más simple. Solo es necesario lo siguiente:
 
 ```dart
 ///“TU_URL” está contenido en el código QR que viene en la constancia de situación fiscal. 
 final infoFiscal = await SatScraping.getInfoFiscal(“TU_URL”);
+```
+
+Aunque también puedes hacer lo siguiente:
+
+```dart
+///“TU_URL” está contenido en el código QR que viene en la constancia de situación fiscal. 
+final infoFiscal = await SatScraping.getInfoFiscalManual(
+    rfc: "TU RFC",
+    idCif: "Tu IdCif",
+);
 ```
 
 Y listo, ya tienes los datos fiscales.
