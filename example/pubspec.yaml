@@ -1,21 +1,20 @@
-name: example
-description: Demostracion de como usar este plugin.
+name: info_sat
+description: Aplicación para obtener la información fiscal del contribuyente.
 
-publish_to: 'none' 
+publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.18.6 <3.0.0'
+  sdk: ">=2.18.6 <3.0.0"
 dependencies:
   flutter:
     sdk: flutter
-  
+
   permission_handler: ^10.2.0
   qrscan: ^0.3.3
 
-  sat_scraping: 
+  sat_scraping:
     path: ../
-
 
   cupertino_icons: ^1.0.2
 
@@ -26,6 +25,4 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 
 flutter:
-
   uses-material-design: true
-

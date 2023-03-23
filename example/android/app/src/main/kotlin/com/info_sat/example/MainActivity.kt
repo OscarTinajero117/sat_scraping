@@ -1,4 +1,4 @@
-package com.oscartinajero117.example
+package com.oscartinajero117.info_sat
 
 import io.flutter.embedding.android.FlutterActivity
 
