@@ -1,6 +1,8 @@
+# CHANGELOG
+
 ## 0.0.1
 
-Se Realiza el proceso de Scraping a la página: https://siat.sat.gob.mx
+Se Realiza el proceso de Scraping a la página: <https://siat.sat.gob.mx>
 
 ## 0.0.2
 
@@ -13,3 +15,7 @@ Se Agrega Documentación y mejoras en código
 ## 0.0.4
 
 Se Mejora la Documentación y el código
+
+## 0.0.5
+
+Se agrega la opción de agregar RFC manualmente
