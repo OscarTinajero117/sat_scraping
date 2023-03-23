@@ -1,10 +1,12 @@
 import 'dart:developer';
 
-import 'package:example/widgets/info_sat.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:sat_scraping/sat_scraping.dart';
+
+import 'widgets/info_sat.dart';
+import 'widgets/info_sat_dialog.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,11 +18,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'SAT Scanner',
+      title: 'Información Fiscal',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Obtener QR'),
+      home: const MyHomePage(title: 'Información Fiscal'),
     );
   }
 }
@@ -59,12 +61,45 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _writeData() async {
+    setState(() {
+      loading = true;
+    });
+    final tmpMap = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const InfoSatDialog();
+      },
+    );
+    try {
+      infoFiscal = await SatScraping.getInfoFiscalManual(
+        rfc: tmpMap['rfc'] as String,
+        idCif: tmpMap['idcif'] as String,
+      );
+    } catch (e) {
+      log('Error: $e');
+    }
+    setState(() {
+      loading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              setState(() {
+                infoFiscal = InfoFiscal.getDefault();
+              });
+            },
+            icon: const Icon(Icons.refresh),
+          ),
+        ],
       ),
       body: ListView(
         children: [
@@ -72,7 +107,10 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: EdgeInsets.all(8.0),
             child: Center(
               child: Text(
-                'Escanea el código QR\nque viene en la constancia\nde situación fiscal',
+                'Escanea el código QR'
+                '\no ingresa los datos manualmente'
+                '\nque viene en la constancia'
+                '\nde situación fiscal',
                 textAlign: TextAlign.center,
               ),
             ),
@@ -83,10 +121,23 @@ class _MyHomePageState extends State<MyHomePage> {
             InfoSat(infoFiscal: infoFiscal),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: loading ? null : _scanQR,
-        tooltip: 'Escanear QR',
-        child: const Icon(Icons.qr_code_scanner),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            heroTag: 'write',
+            onPressed: loading ? null : _writeData,
+            tooltip: 'Escribir Datos',
+            child: const Icon(Icons.edit),
+          ),
+          const SizedBox(height: 10),
+          FloatingActionButton(
+            heroTag: 'scan',
+            onPressed: loading ? null : _scanQR,
+            tooltip: 'Escanear QR',
+            child: const Icon(Icons.qr_code_scanner),
+          ),
+        ],
       ),
     );
   }
