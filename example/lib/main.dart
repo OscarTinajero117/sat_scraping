@@ -38,6 +38,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool loading = false;
+  bool error = false;
+  String errorMessage = '';
 
   InfoFiscal infoFiscal = InfoFiscal.getDefault();
 
@@ -53,6 +55,8 @@ class _MyHomePageState extends State<MyHomePage> {
           infoFiscal = await SatScraping.getInfoFiscal(cameraResult);
         } catch (e) {
           log('Error: $e');
+          error = true;
+          errorMessage = e.toString();
         }
       }
     }
@@ -78,6 +82,8 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     } catch (e) {
       log('Error: $e');
+      error = true;
+      errorMessage = e.toString();
     }
     setState(() {
       loading = false;
@@ -93,6 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
         actions: [
           IconButton(
             onPressed: () {
+              error = false;
               setState(() {
                 infoFiscal = InfoFiscal.getDefault();
               });
@@ -115,6 +122,13 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
+          if (error)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: Text('Error al obtener la información\n$errorMessage'),
+              ),
+            ),
           if (loading)
             const Center(child: CircularProgressIndicator.adaptive()),
           if (!loading && infoFiscal.rfc.isNotEmpty)
