@@ -57,7 +57,7 @@ class _InfoSatDialogState extends State<InfoSatDialog> {
       actions: [
         ElevatedButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).pop(null);
           },
           child: const Text("Cancelar"),
         ),

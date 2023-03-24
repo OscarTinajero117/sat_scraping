@@ -75,6 +75,12 @@ class _MyHomePageState extends State<MyHomePage> {
         return const InfoSatDialog();
       },
     );
+    if (tmpMap == null) {
+      setState(() {
+        loading = false;
+      });
+      return;
+    }
     try {
       infoFiscal = await SatScraping.getInfoFiscalManual(
         rfc: tmpMap['rfc'] as String,
