@@ -66,7 +66,7 @@ class _InfoSatDialogState extends State<InfoSatDialog> {
             if (_formKey.currentState == null) return;
             if (_formKey.currentState!.validate()) {
               _formKey.currentState!.save();
-              print("RFC: $rfc, IDCIF: $idcif");
+              // print("RFC: $rfc, IDCIF: $idcif");
               Navigator.of(context).pop({
                 "rfc": rfc,
                 "idcif": idcif,
