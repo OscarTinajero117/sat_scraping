@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.oscartinajero117.info_sat">
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:label="Información Fiscal SAT"
+        android:label="SAT Escáner"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
