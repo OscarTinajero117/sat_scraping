@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:sat_scraping/sat_scraping.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'widgets/info_sat.dart';
 import 'widgets/info_sat_dialog.dart';
@@ -42,6 +43,27 @@ class _MyHomePageState extends State<MyHomePage> {
   String errorMessage = '';
 
   InfoFiscal infoFiscal = InfoFiscal.getDefault();
+
+  void _shared() {
+    setState(() {
+      loading = true;
+    });
+    String regimenesComplete = '';
+    for (final row in infoFiscal.caracteristicasFiscales) {
+      regimenesComplete +=
+          'Régimen Fiscal: \t\t${row.codigoRegimen} - ${row.regimenFiscal}\n\n';
+    }
+    Share.share(''
+        'RFC: \t\t ${infoFiscal.rfc}\n\n'
+        'ID CIF: \t\t ${infoFiscal.idCif}\n\n'
+        'Razón Social: \t\t${infoFiscal.razonSocial}\n\n'
+        'Código Postal: \t\t${infoFiscal.cp}\n\n'
+        '$regimenesComplete'
+        '');
+    setState(() {
+      loading = false;
+    });
+  }
 
   void _scanQR() async {
     setState(() {
@@ -157,6 +179,14 @@ class _MyHomePageState extends State<MyHomePage> {
             tooltip: 'Escanear QR',
             child: const Icon(Icons.qr_code_scanner),
           ),
+          const SizedBox(height: 10),
+          if (infoFiscal.rfc.isNotEmpty)
+            FloatingActionButton(
+              heroTag: 'shared',
+              onPressed: loading ? null : _shared,
+              tooltip: 'Compartir Breve Información',
+              child: const Icon(Icons.share),
+            ),
         ],
       ),
     );
