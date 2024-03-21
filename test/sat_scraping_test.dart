@@ -1,6 +1,5 @@
-import 'package:flutter_test/flutter_test.dart';
-
 import 'package:sat_scraping/sat_scraping.dart';
+import 'package:test/test.dart';
 
 void main() {
   test('Check bad url', () {
@@ -28,7 +27,7 @@ void main() {
         "https://siat.sat.gob.mx/app/qr/faces/pages/mobile/validadorqr.jsf?";
     expect(
       await SatScraping.getInfoFiscal(url),
-      isInstanceOf<InfoFiscal>(),
+      isA<InfoFiscal>(),
     );
   });
   test('Check manual data', () async {
@@ -36,7 +35,7 @@ void main() {
     const idCif = 'PUT_IDCIF'; // (ID CIF)
     expect(
       await SatScraping.getInfoFiscalManual(rfc: rfc, idCif: idCif),
-      isInstanceOf<InfoFiscal>(),
+      isA<InfoFiscal>(),
     );
   });
 }
