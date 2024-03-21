@@ -1,30 +1,58 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:info_sat/main.dart';
+import 'package:sat_scraping/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
-
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  group('MyApp', () {
+    testWidgets('Renders without crashing', (WidgetTester tester) async {
+      await tester.pumpWidget(const MyApp());
+      expect(find.byType(MyApp), findsOneWidget);
+    });
   });
+
+  group('MyHomePage', () {
+    testWidgets('Renders without crashing', (WidgetTester tester) async {
+      await tester.pumpWidget(const MaterialApp(
+        home: MyHomePage(title: 'Test Title'),
+      ));
+      expect(find.byType(MyHomePage), findsOneWidget);
+    });
+
+    testWidgets('Displays title', (WidgetTester tester) async {
+      await tester.pumpWidget(const MaterialApp(
+        home: MyHomePage(title: 'Test Title'),
+      ));
+      expect(find.text('Test Title'), findsOneWidget);
+    });
+
+    testWidgets('Loading indicator shown when loading is true',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+        home: MyHomePage(title: 'Test Title'),
+      ));
+
+      final MyHomePageState state = tester.state(find.byType(MyHomePage));
+
+      state.loading = true;
+      await tester.pump();
+
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    });
+
+    // Add more tests as needed
+  });
+
+  group('InfoSat', () {
+    testWidgets('Renders without crashing', (WidgetTester tester) async {
+      final infoFiscal = InfoFiscal.getDefault();
+      await tester.pumpWidget(MaterialApp(
+        home: InfoSat(infoFiscal: infoFiscal),
+      ));
+      expect(find.byType(InfoSat), findsOneWidget);
+    });
+
+    // Add more tests as needed
+  });
+
+  // Add more test groups for other widgets
 }
