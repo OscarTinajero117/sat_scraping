@@ -3,7 +3,7 @@
 ## 0.0.7
 
 * Actualización de dependencias.
-* Actualización de ejemplo
+* Actualización de ejemplo.
 
 ## 0.0.6
 
