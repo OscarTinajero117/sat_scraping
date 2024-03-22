@@ -5,10 +5,10 @@ class TableInfoSat extends StatelessWidget {
   final List<TableRow> children;
 
   const TableInfoSat({
-    Key? key,
+    super.key,
     required this.tableTitle,
     required this.children,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

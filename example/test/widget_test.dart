@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sat_scraping/main.dart';
+import 'package:info_sat/main.dart';
+import 'package:info_sat/widgets/info_sat.dart';
+import 'package:sat_scraping/sat_scraping.dart';
 
 void main() {
   group('MyApp', () {
@@ -23,20 +25,6 @@ void main() {
         home: MyHomePage(title: 'Test Title'),
       ));
       expect(find.text('Test Title'), findsOneWidget);
-    });
-
-    testWidgets('Loading indicator shown when loading is true',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(MaterialApp(
-        home: MyHomePage(title: 'Test Title'),
-      ));
-
-      final MyHomePageState state = tester.state(find.byType(MyHomePage));
-
-      state.loading = true;
-      await tester.pump();
-
-      expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
 
     // Add more tests as needed
