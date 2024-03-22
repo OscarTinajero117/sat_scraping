@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'SAT Escáner',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        useMaterial3: false,
       ),
       home: const MyHomePage(title: 'Información Fiscal'),
     );
