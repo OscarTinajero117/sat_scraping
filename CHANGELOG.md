@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.0.8
+
+* Actualización de dependencias.
+* Actualización de modelos (se agrega las funciones copyWith y fromJson).
+
 ## 0.0.7
 
 * Actualización de dependencias.
