@@ -143,4 +143,28 @@ class InfoFiscal {
         al: '',
         caracteristicasFiscales: [],
       );
+
+  factory InfoFiscal.fromJson(Map<String, dynamic> json) => InfoFiscal(
+        rfc: json['rfc'],
+        idCif: json['id_cif'],
+        curpRegimen: json['curp_regimen'],
+        razonSocial: json['razon_social'],
+        fechaNacimientoConstitucion: json['fecha_nacimiento_constitucion'],
+        fechaInicioOperacions: json['fecha_inicio_operacions'],
+        situacionContribuyente: json['situacion_contribuyente'],
+        fechaUltimoCambio: json['fecha_ultimo_cambio'],
+        entidadFederativa: json['entidad_federativa'],
+        municipioDelegacion: json['municipio_delegacion'],
+        colonia: json['colonia'],
+        tipoVialidad: json['tipo_vialidad'],
+        nombreVialidad: json['nombre_vialidad'],
+        numeroExterior: json['numero_exterior'],
+        numeroInterior: json['numero_interior'],
+        cp: json['cp'],
+        correoElectronico: json['correo_electronico'],
+        al: json['al'],
+        caracteristicasFiscales: List<CaracteristicasFiscales>.from(
+            json['caracteristicas_fiscales']
+                .map((x) => CaracteristicasFiscales.fromJson(x))),
+      );
 }

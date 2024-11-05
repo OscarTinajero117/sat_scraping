@@ -34,4 +34,22 @@ class CaracteristicasFiscales {
         'fecha_alta_regimen': fechaAltaRegimen,
         'codigo_regimen': codigoRegimen,
       };
+
+  CaracteristicasFiscales copyWith({
+    String? regimenFiscal,
+    String? fechaAltaRegimen,
+    int? codigoRegimen,
+  }) =>
+      CaracteristicasFiscales(
+        regimenFiscal: regimenFiscal ?? this.regimenFiscal,
+        fechaAltaRegimen: fechaAltaRegimen ?? this.fechaAltaRegimen,
+        codigoRegimen: codigoRegimen ?? this.codigoRegimen,
+      );
+
+  factory CaracteristicasFiscales.fromJson(Map<String, dynamic> json) =>
+      CaracteristicasFiscales(
+        regimenFiscal: json['regimen_fiscal'],
+        fechaAltaRegimen: json['fecha_alta_regimen'],
+        codigoRegimen: json['codigo_regimen'],
+      );
 }
