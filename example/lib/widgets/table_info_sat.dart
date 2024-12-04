@@ -12,14 +12,15 @@ class TableInfoSat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Column(
       children: [
         Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Colors.black26,
+            color: theme.colorScheme.tertiaryContainer,
             border: Border.all(
-              color: Colors.black,
+              color: theme.colorScheme.onPrimaryContainer,
               width: 1.0,
             ),
           ),
@@ -27,8 +28,8 @@ class TableInfoSat extends StatelessWidget {
           child: Center(
             child: Text(
               tableTitle,
-              style: const TextStyle(
-                color: Colors.white,
+              style: TextStyle(
+                color: theme.colorScheme.onPrimaryContainer,
                 fontSize: 20.0,
               ),
             ),

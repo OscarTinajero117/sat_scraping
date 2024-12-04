@@ -2,10 +2,10 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:qrscan/qrscan.dart' as scanner;
 import 'package:sat_scraping/sat_scraping.dart';
 import 'package:share_plus/share_plus.dart';
 
+import 'scanner/scanner.dart';
 import 'widgets/info_sat.dart';
 import 'widgets/info_sat_dialog.dart';
 
@@ -20,10 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'SAT Escáner',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        useMaterial3: false,
-      ),
+      debugShowCheckedModeBanner: false,
       home: const MyHomePage(title: 'Información Fiscal'),
     );
   }
@@ -66,12 +63,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _scanQR() async {
+  Future<void> _scanQR(BuildContext ctx) async {
     setState(() {
       loading = true;
     });
-    if (await getPermission(Permission.camera)) {
-      final cameraResult = await scanner.scan();
+    if (await getPermission(Permission.camera) && ctx.mounted) {
+      final cameraResult = await Scanner.scanQR(context: ctx);
 
       if (cameraResult != null) {
         try {
@@ -94,9 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     final tmpMap = await showDialog(
       context: context,
-      builder: (BuildContext context) {
-        return const InfoSatDialog();
-      },
+      builder: (BuildContext context) => const InfoSatDialog(),
     );
     if (tmpMap == null) {
       setState(() {
@@ -123,7 +118,13 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(
+          widget.title,
+          style: const TextStyle(
+            fontSize: 25.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         centerTitle: true,
         actions: [
           IconButton(
@@ -138,19 +139,21 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: ListView(
+        padding: const EdgeInsets.all(10.0),
         children: [
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Center(
+          if (infoFiscal.rfc.isEmpty)
+            Center(
               child: Text(
                 'Escanea el código QR'
                 '\no ingresa los datos manualmente'
                 '\nque viene en la constancia'
                 '\nde situación fiscal',
                 textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 20,
+                ),
               ),
             ),
-          ),
           if (error)
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -167,19 +170,21 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          FloatingActionButton(
-            heroTag: 'write',
-            onPressed: loading ? null : _writeData,
-            tooltip: 'Escribir Datos',
-            child: const Icon(Icons.edit),
-          ),
+          if (infoFiscal.rfc.isEmpty)
+            FloatingActionButton(
+              heroTag: 'write',
+              onPressed: loading ? null : _writeData,
+              tooltip: 'Escribir Datos',
+              child: const Icon(Icons.edit),
+            ),
           const SizedBox(height: 10),
-          FloatingActionButton(
-            heroTag: 'scan',
-            onPressed: loading ? null : _scanQR,
-            tooltip: 'Escanear QR',
-            child: const Icon(Icons.qr_code_scanner),
-          ),
+          if (infoFiscal.rfc.isEmpty)
+            FloatingActionButton(
+              heroTag: 'scan',
+              onPressed: loading ? null : () async => await _scanQR(context),
+              tooltip: 'Escanear QR',
+              child: const Icon(Icons.qr_code_scanner),
+            ),
           const SizedBox(height: 10),
           if (infoFiscal.rfc.isNotEmpty)
             FloatingActionButton(

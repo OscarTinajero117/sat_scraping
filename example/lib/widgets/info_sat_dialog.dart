@@ -17,7 +17,7 @@ class _InfoSatDialogState extends State<InfoSatDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text("Ingrese los datos"),
+      title: const Text("Ingresa los datos"),
       content: Form(
         key: _formKey,
         child: Column(
@@ -34,7 +34,7 @@ class _InfoSatDialogState extends State<InfoSatDialog> {
               },
               onSaved: (value) {
                 if (value == null) return;
-                rfc = value;
+                rfc = value.toUpperCase();
               },
             ),
             TextFormField(
