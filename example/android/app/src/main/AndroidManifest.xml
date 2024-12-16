@@ -6,7 +6,7 @@
     <!-- Camera permission -->
     <uses-permission android:name="android.permission.CAMERA" />
     <application
-        android:label="SAT Escáner"
+        android:label="CIF Escáner"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
