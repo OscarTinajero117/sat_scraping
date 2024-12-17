@@ -2,7 +2,7 @@ name: info_sat
 description: Aplicación para obtener la información fiscal del contribuyente.
 
 publish_to: "none"
-version: 1.0.0+8
+version: 1.0.0+9
 
 environment:
   sdk: ^3.5.3

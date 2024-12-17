@@ -6,7 +6,7 @@ Respetamos tu privacidad y nos comprometemos a proteger la información personal
 
 ## 1. Responsable del tratamiento de datos personales
 
-CIF Escáner es una aplicación desarrollada por OscarTinajero117. Para cualquier consulta relacionada con esta política, puedes contactarnos en <tinajero117.developer@gmail.com>.
+"Escáner de constancia de situación fiscal" es una aplicación desarrollada por OscarTinajero117. Para cualquier consulta relacionada con esta política, puedes contactarnos en <tinajero117.developer@gmail.com>.
 
 ## 2. Datos personales que recopilamos
 
@@ -40,7 +40,7 @@ El tratamiento de tus datos se realiza en cumplimiento con la Ley Federal de Pro
 
 ## 5. Compartición de datos con terceros
 
-CIF Escáner no comparte, vende ni distribuye tus datos personales a terceros. La información procesada en la aplicación se utiliza únicamente dentro del dispositivo donde está instalada la aplicación.
+"Escáner de constancia de situación fiscal" no comparte, vende ni distribuye tus datos personales a terceros. La información procesada en la aplicación se utiliza únicamente dentro del dispositivo donde está instalada la aplicación.
 
 ## 6. Seguridad de la información
 
@@ -51,7 +51,7 @@ La información del usuario está segura gracias a las siguientes medidas:
 
 ## 7. Derechos ARCO
 
-El usuario tiene completo control de sus datos personales. Los datos procesados en la aplicación solo se mantienen temporalmente y son eliminados cuando se reinicia el proceso o se cierra la aplicación. Si el usuario ya no desea los servicios que ofrece CIF Escáner, basta con desinstalar la aplicación.
+El usuario tiene completo control de sus datos personales. Los datos procesados en la aplicación solo se mantienen temporalmente y son eliminados cuando se reinicia el proceso o se cierra la aplicación. Si el usuario ya no desea los servicios que ofrece "Escáner de constancia de situación fiscal", basta con desinstalar la aplicación.
 
 ## 8. Cambios en la Política de Privacidad
 

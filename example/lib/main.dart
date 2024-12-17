@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'CIF Escáner',
+      title: 'Escáner de constancia de situación fiscal',
       debugShowCheckedModeBanner: false,
       home: const MyHomePage(title: 'Información Fiscal'),
     );
