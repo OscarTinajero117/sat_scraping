@@ -2,28 +2,30 @@ name: info_sat
 description: Aplicación para obtener la información fiscal del contribuyente.
 
 publish_to: "none"
-version: 1.0.0+9
+version: 2.0.0+10
 
 environment:
-  sdk: ^3.5.3
+  sdk: ^3.12.0
 
 dependencies:
   flutter:
     sdk: flutter
 
-  permission_handler: ^11.3.1
-  mobile_scanner: ^6.0.2
+  permission_handler: ^12.0.3
+  mobile_scanner: ^7.3.0
 
   sat_scraping:
     path: ../
 
-  share_plus: ^10.1.2
+  share_plus: ^13.2.1
+  google_fonts: ^8.2.0
+  shared_preferences: ^2.5.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
 
 flutter:
   uses-material-design: true
