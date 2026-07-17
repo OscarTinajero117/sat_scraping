@@ -122,6 +122,10 @@ class SatHttpScraping {
                 );
           break;
         case 1:
+          final element8 = table.elementAtOrNull(8) ?? "";
+
+          final element9 = table.elementAtOrNull(9) ?? "";
+
           infoFiscal = infoFiscal.copyWith(
             rfc: rfc,
             idCif: idCif,
@@ -133,8 +137,8 @@ class SatHttpScraping {
             numeroExterior: table[5],
             numeroInterior: table[6],
             cp: table[7],
-            correoElectronico: table[8].contains('@') ? table[8] : "",
-            al: table[8].contains('@') ? table[9] : table[8],
+            correoElectronico: element8.contains('@') ? element8 : "",
+            al: element8.contains('@') ? element9 : element8,
           );
           break;
         case 2:
