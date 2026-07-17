@@ -9,14 +9,16 @@ void main() {
     );
     expect(
       () async => await SatScraping.getInfoFiscal(
-          "https://siat.sat.gob.mx/app/qr/faces/pages/mobile/"),
+        "https://siat.sat.gob.mx/app/qr/faces/pages/mobile/",
+      ),
       throwsA(isA<Exception>()),
     );
   });
   test('Check incomplete url', () {
     expect(
       () async => await SatScraping.getInfoFiscal(
-          "https://siat.sat.gob.mx/app/qr/faces/pages/mobile/"),
+        "https://siat.sat.gob.mx/app/qr/faces/pages/mobile/",
+      ),
       throwsA(isA<Exception>()),
     );
   });
@@ -24,11 +26,8 @@ void main() {
     // TODO: COMPLETE THE URL WITH THE DATA OF YOUR QR
     /// (Completa la url con los datos de tu QR)
     const url =
-        "https://siat.sat.gob.mx/app/qr/faces/pages/mobile/validadorqr.jsf?";
-    expect(
-      await SatScraping.getInfoFiscal(url),
-      isA<InfoFiscal>(),
-    );
+        "https://siat.sat.gob.mx/app/qr/faces/pages/mobile/validadorqr.jsf?D1=10&D2=1&D3=[YOUR_ID_CIF_&_RFC]";
+    expect(await SatScraping.getInfoFiscal(url), isA<InfoFiscal>());
   });
   test('Check manual data', () async {
     const rfc = 'PUT_RFC'; // (RFC)
