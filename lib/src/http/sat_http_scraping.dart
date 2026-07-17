@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:beautiful_soup_dart/beautiful_soup.dart';
+import 'package:new_beautiful_soup_dart/new_beautiful_soup_dart.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:sat_scraping/src/models/caracteristicas_fiscales.dart';
@@ -54,10 +54,12 @@ class SatHttpScraping {
 
       /// Se recorre [tables] y se obtienen los datos necesarios.
       for (final table in tables) {
-        elementsTable.add(table
-            .findAll('td', attrs: {'style': "text-align:left;"})
-            .map((e) => e.text)
-            .toList());
+        elementsTable.add(
+          table
+              .findAll('td', attrs: {'style': "text-align:left;"})
+              .map((e) => e.text)
+              .toList(),
+        );
       }
 
       /// Finalmente se devuelve.
@@ -131,18 +133,20 @@ class SatHttpScraping {
             numeroExterior: table[5],
             numeroInterior: table[6],
             cp: table[7],
-            correoElectronico: table[8],
-            al: table[9],
+            correoElectronico: table[8].contains('@') ? table[8] : "",
+            al: table[8].contains('@') ? table[9] : table[8],
           );
           break;
         case 2:
           for (int j = 0; j < table.length; j += 2) {
             final code = getCodeByRegimen(table[j]);
-            infoFiscal.caracteristicasFiscales.add(CaracteristicasFiscales(
-              regimenFiscal: table[j],
-              fechaAltaRegimen: table[j + 1],
-              codigoRegimen: code,
-            ));
+            infoFiscal.caracteristicasFiscales.add(
+              CaracteristicasFiscales(
+                regimenFiscal: table[j],
+                fechaAltaRegimen: table[j + 1],
+                codigoRegimen: code,
+              ),
+            );
           }
           break;
       }
