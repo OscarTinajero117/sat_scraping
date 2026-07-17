@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 0.0.9
+
+* Actualización de test (formateo).
+* Actualización de dependencias.
+* Actualización de paquete usado, antes: `beutiful_soup_dart`, ahora: `new_beautiful_soup_dart`.
+* Corrección de errores y mejora en lógica para obtener información precisa.
+
 ## 0.0.8
 
 * Actualización de dependencias.
