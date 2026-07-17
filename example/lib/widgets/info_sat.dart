@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:sat_scraping/sat_scraping.dart';
 
-import 'table_info_sat.dart';
+import '../theme/app_theme.dart';
+import 'info_fiscal_detail_card.dart';
 
+/// Widget principal que muestra toda la información fiscal del contribuyente.
+///
+/// Organiza los datos en tres secciones con tarjetas premium:
+/// 1. **Datos de Identificación** — RFC, nombre, CURP, fechas
+/// 2. **Datos de Ubicación** — Domicilio fiscal vigente
+/// 3. **Características Fiscales** — Regímenes fiscales vigentes
+///
+/// Detecta automáticamente si es persona física (RFC 13 caracteres) o
+/// persona moral (RFC 12 caracteres) para adaptar las etiquetas.
 class InfoSat extends StatelessWidget {
+  /// La información fiscal del contribuyente a mostrar.
   final InfoFiscal infoFiscal;
 
   const InfoSat({
@@ -13,236 +24,97 @@ class InfoSat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     final personaFisica = infoFiscal.rfc.length == 13;
-    final rows = <TableRow>[];
-    final theme = Theme.of(context);
-    int tmpIdx = 1;
+
+    // Construir filas de regímenes fiscales
+    final regimenRows = <InfoRow>[];
     for (final row in infoFiscal.caracteristicasFiscales) {
-      rows.addAll([
-        _tableRowInformation(
-          width: width,
-          index: tmpIdx++,
-          title: "Régimen:",
-          information: row.regimenFiscal,
-          theme: theme,
-        ),
-        _tableRowInformation(
-          width: width,
-          index: tmpIdx++,
-          title: "Código del Régimen:",
-          information: row.codigoRegimen.toString(),
-          theme: theme,
-        ),
-        _tableRowInformation(
-          width: width,
-          index: tmpIdx++,
-          title: "Fecha de alta:",
-          information: row.fechaAltaRegimen,
-          theme: theme,
-        ),
+      regimenRows.addAll([
+        InfoRow(label: 'Régimen:', value: row.regimenFiscal),
+        InfoRow(label: 'Código:', value: row.codigoRegimen.toString()),
+        InfoRow(label: 'Fecha de alta:', value: row.fechaAltaRegimen),
       ]);
     }
+
     return Column(
       children: [
-        TableInfoSat(
-          tableTitle: 'Datos de Identificación',
-          children: [
-            _tableRowInformation(
-              index: 1,
-              title: personaFisica ? "Nombre:" : "Denominación o Razón Social:",
-              information: infoFiscal.razonSocial,
-              width: width,
-              theme: theme,
+        // ── Sección 1: Datos de Identificación ──
+        InfoFiscalDetailCard(
+          title: 'Datos de Identificación',
+          icon: Icons.badge_outlined,
+          rows: [
+            InfoRow(
+              label: personaFisica
+                  ? 'Nombre:'
+                  : 'Denominación o Razón Social:',
+              value: infoFiscal.razonSocial,
             ),
-            _tableRowInformation(
-              width: width,
-              index: 2,
-              title: "RFC:",
-              information: infoFiscal.rfc,
-              theme: theme,
+            InfoRow(label: 'RFC:', value: infoFiscal.rfc),
+            InfoRow(label: 'ID CIF:', value: infoFiscal.idCif),
+            InfoRow(
+              label: personaFisica ? 'CURP:' : 'Régimen de capital:',
+              value: infoFiscal.curpRegimen,
             ),
-            _tableRowInformation(
-              width: width,
-              index: 3,
-              title: "ID CIF:",
-              information: infoFiscal.idCif,
-              theme: theme,
+            InfoRow(
+              label: personaFisica
+                  ? 'Fecha Nacimiento:'
+                  : 'Fecha de constitución:',
+              value: infoFiscal.fechaNacimientoConstitucion,
             ),
-            _tableRowInformation(
-              width: width,
-              index: 4,
-              title: personaFisica ? "CURP:" : "Régimen de capital:",
-              information: infoFiscal.curpRegimen,
-              theme: theme,
+            InfoRow(
+              label: 'Inicio de operaciones:',
+              value: infoFiscal.fechaInicioOperacions,
             ),
-            _tableRowInformation(
-              width: width,
-              index: 5,
-              title: personaFisica
-                  ? "Fecha Nacimiento:"
-                  : "Fecha de constitución:",
-              information: infoFiscal.fechaNacimientoConstitucion,
-              theme: theme,
+            InfoRow(
+              label: 'Situación:',
+              value: infoFiscal.situacionContribuyente,
             ),
-            _tableRowInformation(
-              width: width,
-              index: 6,
-              title: "Fecha de Inicio de operaciones:",
-              information: infoFiscal.fechaInicioOperacions,
-              theme: theme,
-            ),
-            _tableRowInformation(
-              width: width,
-              index: 7,
-              title: "Situación del contribuyente:",
-              information: infoFiscal.situacionContribuyente,
-              theme: theme,
-            ),
-            _tableRowInformation(
-              width: width,
-              index: 8,
-              title: "Fecha del último cambio de situación:",
-              information: infoFiscal.fechaUltimoCambio,
-              theme: theme,
+            InfoRow(
+              label: 'Último cambio:',
+              value: infoFiscal.fechaUltimoCambio,
             ),
           ],
         ),
-        const SizedBox(height: 10.0),
-        //ubicacion
-        TableInfoSat(
-          tableTitle: 'Datos de Ubicación (domicilio fiscal, vigente)',
-          children: [
-            _tableRowInformation(
-              width: width,
-              index: 1,
-              title: "Entidad Federativa:",
-              information: infoFiscal.entidadFederativa,
-              theme: theme,
+
+        const SizedBox(height: AppTheme.sectionSpacing),
+
+        // ── Sección 2: Datos de Ubicación ──
+        InfoFiscalDetailCard(
+          title: 'Domicilio Fiscal (vigente)',
+          icon: Icons.location_on_outlined,
+          rows: [
+            InfoRow(
+              label: 'Entidad Federativa:',
+              value: infoFiscal.entidadFederativa,
             ),
-            _tableRowInformation(
-              width: width,
-              index: 2,
-              title: "Municipio o delegación:",
-              information: infoFiscal.municipioDelegacion,
-              theme: theme,
+            InfoRow(
+              label: 'Municipio:',
+              value: infoFiscal.municipioDelegacion,
             ),
-            _tableRowInformation(
-              width: width,
-              index: 3,
-              title: "Colonia:",
-              information: infoFiscal.colonia,
-              theme: theme,
+            InfoRow(label: 'Colonia:', value: infoFiscal.colonia),
+            InfoRow(label: 'Tipo vialidad:', value: infoFiscal.tipoVialidad),
+            InfoRow(label: 'Vialidad:', value: infoFiscal.nombreVialidad),
+            InfoRow(label: 'Núm. exterior:', value: infoFiscal.numeroExterior),
+            InfoRow(label: 'Núm. interior:', value: infoFiscal.numeroInterior),
+            InfoRow(label: 'Código Postal:', value: infoFiscal.cp),
+            InfoRow(
+              label: 'Correo electrónico:',
+              value: infoFiscal.correoElectronico,
             ),
-            _tableRowInformation(
-              width: width,
-              index: 4,
-              title: "Tipo de vialidad:",
-              information: infoFiscal.tipoVialidad,
-              theme: theme,
-            ),
-            _tableRowInformation(
-              width: width,
-              index: 5,
-              title: "Nombre de la vialidad:",
-              information: infoFiscal.nombreVialidad,
-              theme: theme,
-            ),
-            _tableRowInformation(
-              width: width,
-              index: 6,
-              title: "Número exterior:",
-              information: infoFiscal.numeroExterior,
-              theme: theme,
-            ),
-            _tableRowInformation(
-              width: width,
-              index: 7,
-              title: "Número interior:",
-              information: infoFiscal.numeroInterior,
-              theme: theme,
-            ),
-            _tableRowInformation(
-              width: width,
-              index: 8,
-              title: "Código Postal:",
-              information: infoFiscal.cp,
-              theme: theme,
-            ),
-            _tableRowInformation(
-              width: width,
-              index: 9,
-              title: "Correo electrónico:",
-              information: infoFiscal.correoElectronico,
-              theme: theme,
-            ),
-            _tableRowInformation(
-              width: width,
-              index: 10,
-              title: "AL:",
-              information: infoFiscal.al,
-              theme: theme,
-            ),
+            InfoRow(label: 'AL:', value: infoFiscal.al),
           ],
         ),
-        const SizedBox(height: 10.0),
-        //Caracteristicas
-        TableInfoSat(
-          tableTitle: 'Características fiscales (vigente)',
-          children: rows,
-        ),
-      ],
-    );
-  }
 
-  TableRow _tableRowInformation({
-    required int index,
-    required String title,
-    required String information,
-    required double width,
-    required ThemeData theme,
-  }) {
-    return TableRow(
-      decoration: BoxDecoration(
-        color: index % 2 == 0
-            ? theme.colorScheme.primaryContainer.withOpacity(0.7)
-            : Colors.transparent,
-      ),
-      children: [
-        _containerTextInformation(
-          text: title,
-          fontWeight: FontWeight.bold,
-          width: width,
-        ),
-        _containerTextInformation(
-          text: information,
-          width: width,
-        ),
-      ],
-    );
-  }
+        const SizedBox(height: AppTheme.sectionSpacing),
 
-  Container _containerTextInformation({
-    required String text,
-    FontWeight fontWeight = FontWeight.normal,
-    required double width,
-  }) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-        horizontal: 10,
-      ),
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: width < 360
-              ? 13
-              : width < 720
-                  ? 16
-                  : 20,
-          fontWeight: fontWeight,
-        ),
-      ),
+        // ── Sección 3: Características Fiscales ──
+        if (regimenRows.isNotEmpty)
+          InfoFiscalDetailCard(
+            title: 'Características Fiscales (vigente)',
+            icon: Icons.account_balance_outlined,
+            rows: regimenRows,
+          ),
+      ],
     );
   }
 }
